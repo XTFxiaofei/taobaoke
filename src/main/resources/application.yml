@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: valord
+  http:
+    encoding:
+      enabled: true
+      charset: UTF-8
+      force: true
+
+  profiles:
+    active:
+
+server:
+  error:
+    path: /404.html
+  port: 20012

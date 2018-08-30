@@ -1,0 +1,70 @@
+<configuration>
+    <!--You cannot use extensions in the standard logback.xml configuration file since it’s loaded too early. You need
+    to either use logback-spring.xml or define a logging.config property.-->
+    <!--The extensions cannot be used with Logback’s configuration scanning. If you attempt to do so, making changes to
+    the configuration file will result in an error similar to one of the following being logged:-->
+    <include resource="org/springframework/boot/logging/logback/base.xml"/>
+    <logger name="org.springframework.web" level="INFO"/>
+
+    <!--The <springProperty> tag allows you to surface properties from the Spring Environment for use within Logback.
+    This can be useful if you want to access values from your application.properties file in your logback configuration.
+     The tag works in a similar way to Logback’s standard <property> tag, but rather than specifying a direct value you
+     specify the source of the property (from the Environment). You can use the scope attribute if you need to store
+     the property somewhere other than in local scope. If you need a fallback value in case the property is not set in
+      the Environment, you can use the defaultValue attribute.
+      springProperty节点可以使用配置在 Environment 中的值，并可以提供默认值。在logback配置中便可以通过占位符引用该值！
+      -->
+    <springProperty scope="context" name="application-name" source="spring.application.name"
+                    defaultValue="valord-service"/>
+
+
+    <!--The <springProfile> tag allows you to optionally include or exclude sections of configuration based on the
+    active Spring profiles. Profile sections are supported anywhere within the <configuration> element. Use the name
+    attribute to specify which profile accepts the configuration. Multiple profiles can be specified using a
+    comma-separated list.
+    根据被激活的配置来激活相应的 日志配置选项
+    -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>%date{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</Pattern>
+        </layout>
+    </appender>
+
+    <appender name="ROLLING" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>/home/elsa/Vicky/Jetbrains/IDEA/projects/valord/log/valord.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!-- rollover daily -->
+            <fileNamePattern>/home/elsa/Vicky/Jetbrains/IDEA/projects/valord/log/valord-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <!-- each file should be at most 100MB, keep 60 days worth of history, but at most 20GB -->
+            <maxFileSize>100MB</maxFileSize>
+            <maxHistory>60</maxHistory>
+            <totalSizeCap>20GB</totalSizeCap>
+        </rollingPolicy>
+
+        <encoder>
+            <pattern>[%date{yyyy-MM-dd HH:mm:ss.SSS}] [%-5level] [%thread] [%class.%method] - [%msg]%n</pattern>
+        </encoder>
+    </appender>
+
+    <!--
+     <springProfile name="dev">
+        <root level="INFO">
+            <appender-ref ref="STDOUT"/>
+        </root>
+    </springProfile>
+    -->
+
+    <springProfile name="test">
+        <root level="INFO">
+            <appender-ref ref="ROLLING"/>
+        </root>
+    </springProfile>
+
+    <springProfile name="product">
+        <root level="INFO">
+            <appender-ref ref="ROLLING"/>
+        </root>
+    </springProfile>
+
+
+</configuration>
