@@ -73,13 +73,13 @@ public class Https {
     /**
      * get请求方法 带请求参数
      *
-     * @param url    请求地址
-     * @param params 请求参数
+     * @param url     请求地址
+     * @param headers 请求头
      * @return 请求结果
      * @throws Exception 抛出异常
      */
-    public static HttpResult ofGet(String url, Map<String, String> params) throws Exception {
-        return doGet(url, null, params);
+    public static HttpResult ofGet(String url, Map<String, String> headers) throws Exception {
+        return doGet(url, headers, null);
     }
 
     /**
