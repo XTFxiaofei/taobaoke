@@ -1,4 +1,4 @@
-package org.elsa.valord.common.tools;
+package org.elsa.valord.common.utils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -9,7 +9,7 @@ import java.util.Map;
  * @author valord577
  * @date 18-8-21 下午5:22
  */
-public class ReqHeader {
+public class Headers {
 
     /**
      * TB 请求头缓存
@@ -40,7 +40,7 @@ public class ReqHeader {
     /**
      * 私有对象 非懒汉模式
      */
-    private static ReqHeader cacheManager = null;
+    private static Headers cacheManager = null;
 
     /**
      * 模拟浏览器请求头
@@ -53,7 +53,7 @@ public class ReqHeader {
     /**
      * 私有构造 外部不可new
      */
-    private ReqHeader() {
+    private Headers() {
         TB_HEADERS.put("accept", ACCEPT);
         TB_HEADERS.put("accept-encoding", ACCEPT_ENCODING);
         TB_HEADERS.put("accept-language", ACCEPT_LANGUAGE);
@@ -68,9 +68,9 @@ public class ReqHeader {
     /**
      * 允许外部获得实例对象
      */
-    public static ReqHeader getInstance() {
+    public static Headers getInstance() {
         if (null == cacheManager) {
-            cacheManager = new ReqHeader();
+            cacheManager = new Headers();
         }
 
         return cacheManager;

@@ -1,7 +1,5 @@
 package org.elsa.valord.self;
 
-import org.elsa.valord.common.tools.ReqHeader;
-
 import java.util.Map;
 
 /**
@@ -12,10 +10,10 @@ public class Headers {
 
     public static void main(String[] args) {
 
-        ReqHeader reqHeader = ReqHeader.getInstance();
-        Map map = reqHeader.getHeader(ReqHeader.TB);
+        org.elsa.valord.common.utils.Headers headers = org.elsa.valord.common.utils.Headers.getInstance();
+        Map map = headers.getHeader(org.elsa.valord.common.utils.Headers.TB);
 
-        boolean f = reqHeader.putCookie(ReqHeader.TB, "123");
+        boolean f = headers.putCookie(org.elsa.valord.common.utils.Headers.TB, "123");
         if (f) {
             System.out.println(map.get("cookie"));
         }
