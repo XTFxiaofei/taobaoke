@@ -21,7 +21,7 @@ public class Emails {
     /**
      * 接收账户 多账户以 split 分隔
      */
-    private static final String TO = "m13095944753@163.com";
+    private static final String TO = "c_ling_s_mine@163.com";
 
     /**
      * 账户分隔符
@@ -80,6 +80,32 @@ public class Emails {
      */
     public static boolean send(String subject, String content, File attachment, String fileName) {
         return mail(TO, SPLIT, subject, content, attachment, fileName, FROM, PASSWORD, SIGN, MAILHOST, SMTPPORT, SSL);
+    }
+
+    /**
+     * 发送邮件 自定义收信人
+     *
+     * @param to      接收账户 多账户以 "|" 分隔
+     * @param subject 标题
+     * @param content 内容
+     * @return 返回boolean类型 是否发生成功
+     */
+    public static boolean send(String to, String subject, String content) {
+        return mail(to, SPLIT, subject, content, null, null, FROM, PASSWORD, SIGN, MAILHOST, SMTPPORT, SSL);
+    }
+
+    /**
+     * 发送邮件 自定义收信人
+     *
+     * @param to         接收账户 多账户以 "|" 分隔
+     * @param subject    标题
+     * @param content    内容
+     * @param attachment 附件
+     * @param fileName   重命名附件
+     * @return 返回boolean类型 是否发生成功
+     */
+    public static boolean send(String to, String subject, String content, File attachment, String fileName) {
+        return mail(to, SPLIT, subject, content, attachment, fileName, FROM, PASSWORD, SIGN, MAILHOST, SMTPPORT, SSL);
     }
 
     /**
