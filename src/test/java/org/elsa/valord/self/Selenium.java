@@ -4,10 +4,8 @@ import org.elsa.valord.common.pojo.HttpResult;
 import org.elsa.valord.common.utils.Headers;
 import org.elsa.valord.common.utils.Https;
 import org.openqa.selenium.Cookie;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-
-import java.util.Scanner;
+import org.openqa.selenium.chrome.ChromeOptions;
 
 /**
  * @author valord577
@@ -17,23 +15,43 @@ public class Selenium {
 
     public static void main(String[] args) {
 
-        final String url = "https://pub.alimama.com/common/code/getAuctionCode.json?auctionid=562382995602&adzoneid=11639900145&siteid=62250400&scenes=1";
+        final String url0 = "https://login.taobao.com/member/login.jhtml?style=mini&newMini2=true&css_style=alimama&from=alimama&redirectURL=http%3A%2F%2Fwww.alimama.com&full_redirect=true&disableQuickLogin=true";
+        final String url1 = "https://pub.alimama.com/common/code/getAuctionCode.json?auctionid=562382995602&adzoneid=11639900145&siteid=62250400&scenes=1";
 
-        System.setProperty("webdriver.chrome.driver", "/home/elsa/Vicky/Google/chromedriver/chromedriver_2.40_v66_v68");
-        WebDriver browser = new ChromeDriver();
+//        System.setProperty("webdriver.chrome.driver", "/home/elsa/Vicky/Google/chromedriver/chromedriver_2.40_v66_v68");
+        System.setProperty("webdriver.chrome.driver", "/Users/valor/Vicky/ChromeDriver/chromedriver");
 
-        browser.get(url);
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--disable-extensions");
+        options.addArguments("--no-sandbox");
+        options.addArguments("--disable-dev-shm-usage");
+        options.addArguments("--headless");
+
+        ChromeDriver browser = new ChromeDriver();
 
         try {
-            Thread.sleep(1000L);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        System.out.println(browser.getCurrentUrl());
+            browser.get(url0);
 
-        Scanner input = new Scanner(System.in);
-        if ("y".equals(input.next())) {
-            input.close();
+            Thread.sleep(1000L);
+
+            System.out.println(browser.getCurrentUrl());
+
+            for (int i = 0; i < 31; i++) {
+                System.out.println(i + ":" + browser.getCurrentUrl());
+
+                if (30 == i) {
+                    browser.quit();
+                    return;
+                }
+
+                if (browser.getCurrentUrl().startsWith("https://www.alimama.com/")) {
+                    browser.get(url1);
+                    Thread.sleep(2000L);
+                    break;
+                }
+
+                Thread.sleep(2000L);
+            }
 
             System.out.println(browser.getCurrentUrl());
 
@@ -48,13 +66,17 @@ public class Selenium {
                 System.out.println(headers.getHeader(Headers.TB).get("cookie"));
 
                 try {
-                    HttpResult result = Https.ofGet(url, headers.getHeader(Headers.TB));
+                    HttpResult result = Https.ofGet(url1, headers.getHeader(Headers.TB));
                     System.out.println(result);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
 
             }
+
+        } catch (Exception e) {
+            browser.quit();
+            e.printStackTrace();
         }
     }
 }
