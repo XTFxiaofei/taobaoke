@@ -31,10 +31,14 @@
     </appender>
 
     <appender name="ROLLING" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>/home/elsa/Vicky/Jetbrains/IDEA/projects/valord/log/valord.log</file>
+        <!--<file>/home/elsa/Vicky/Jetbrains/IDEA/projects/valord/log/valord.log</file>-->
+        <!-- mac 路径 -->
+        <file>/Users/valor/Vicky/IDEAProjects/valord/log/valord.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
             <!-- rollover daily -->
-            <fileNamePattern>/home/elsa/Vicky/Jetbrains/IDEA/projects/valord/log/valord-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <!--<fileNamePattern>/home/elsa/Vicky/Jetbrains/IDEA/projects/valord/log/valord-%d{yyyy-MM-dd}.%i.log</fileNamePattern>-->
+            <!-- mac 路径 -->
+            <fileNamePattern>/Users/valor/Vicky/IDEAProjects/valord/log/valord-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
             <!-- each file should be at most 100MB, keep 60 days worth of history, but at most 20GB -->
             <maxFileSize>100MB</maxFileSize>
             <maxHistory>60</maxHistory>
