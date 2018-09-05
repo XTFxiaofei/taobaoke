@@ -21,7 +21,7 @@ public class Emails {
     /**
      * 接收账户 多账户以 split 分隔
      */
-    private static final String TO = "c_ling_s_mine@163.com";
+    private static final String TO = "m13095944753@163.com";
 
     /**
      * 账户分隔符
@@ -34,7 +34,7 @@ public class Emails {
     private static final String FROM = "wu491607371@qq.com";
 
     /**
-     * 发生账户密码
+     * 发送账户密码
      */
     private static final String PASSWORD = "hhuyzadjbgcwcade";
 
