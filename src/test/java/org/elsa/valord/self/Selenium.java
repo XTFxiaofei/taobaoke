@@ -1,5 +1,7 @@
 package org.elsa.valord.self;
 
+import com.alibaba.fastjson.JSON;
+import org.elsa.valord.advice.response.AuctionCode;
 import org.elsa.valord.common.pojo.HttpResult;
 import org.elsa.valord.common.utils.Headers;
 import org.elsa.valord.common.utils.Https;
@@ -63,11 +65,13 @@ public class Selenium {
             Headers headers = Headers.getInstance();
             boolean f = headers.putCookie(Headers.TB, cookie.toString());
             if (f) {
-                System.out.println(headers.getHeader(Headers.TB).get("cookie"));
+                System.out.println(headers.getHeader(Headers.TB).get(Headers.COOKIE));
 
                 try {
                     HttpResult result = Https.ofGet(url1, headers.getHeader(Headers.TB));
                     System.out.println(result);
+                    AuctionCode auctionCode = JSON.parseObject(result.getContent(), AuctionCode.class);
+                    System.out.println(auctionCode.getData());
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

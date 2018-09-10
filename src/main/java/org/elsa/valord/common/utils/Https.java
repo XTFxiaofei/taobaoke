@@ -147,6 +147,18 @@ public class Https {
     }
 
     /**
+     * post请求方法 带请求参数 application/json
+     *
+     * @param url         请求地址
+     * @param bodyString  请求参数
+     * @return 请求结果
+     * @throws Exception 抛出异常
+     */
+    public static HttpResult ofPost(String url, String bodyString) throws Exception {
+        return doPost(url, null, null, null, bodyString, RAW_JSON);
+    }
+
+    /**
      * post请求方法 带请求头和请求参数 application/json
      *
      * @param url         请求地址
@@ -158,6 +170,18 @@ public class Https {
      */
     public static HttpResult ofPost(String url, Map<String, String> headers, Map<String, String> queryParams, String bodyString) throws Exception {
         return doPost(url, headers, queryParams, null, bodyString, RAW_JSON);
+    }
+
+    /**
+     * post请求方法 带请求参数 x-www-form-urlencoded
+     *
+     * @param url         请求地址
+     * @param bodyParams  请求参数
+     * @return 请求结果
+     * @throws Exception 抛出异常
+     */
+    public static HttpResult ofPost(String url, Map<String, String> bodyParams) throws Exception {
+        return doPost(url, null, null, bodyParams, null, X_WWW_FORM_URLENCODED);
     }
 
     /**

@@ -14,3 +14,11 @@ server:
   error:
     path: /404.html
   port: 20012
+
+auth: C_Ling_s_Mine
+
+selenium:
+  tb:
+    init: https://login.taobao.com/member/login.jhtml?style=mini&newMini2=true&css_style=alimama&from=alimama&redirectURL=http%3A%2F%2Fwww.alimama.com&full_redirect=true&disableQuickLogin=true
+    flag: https://www.alimama.com/
+    target: https://pub.alimama.com/common/code/getAuctionCode.json?auctionid=562382995602&adzoneid=11639900145&siteid=62250400&scenes=1

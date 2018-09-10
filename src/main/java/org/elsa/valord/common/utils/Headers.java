@@ -36,11 +36,16 @@ public class Headers {
      */
     public static final int TB = 0;
     public static final int JD = 1;
+    public static final String COOKIE = "cookie";
 
     /**
      * 私有对象 非懒汉模式
      */
-    private static Headers cacheManager = null;
+    private static Headers cacheManager;
+
+    static {
+        cacheManager = new Headers();
+    }
 
     /**
      * 模拟浏览器请求头
@@ -69,11 +74,21 @@ public class Headers {
      * 允许外部获得实例对象
      */
     public static Headers getInstance() {
-        if (null == cacheManager) {
-            cacheManager = new Headers();
-        }
-
         return cacheManager;
+    }
+
+    /**
+     * 获取淘宝cookie缓存
+     */
+    public String getTbCookie() {
+        return TB_COOKIE;
+    }
+
+    /**
+     * 获取京东cookie缓存
+     */
+    public String getJdCookie() {
+        return JD_COOKIE;
     }
 
     /**
@@ -103,7 +118,7 @@ public class Headers {
             case TB:
                 if (null == TB_COOKIE) {
                     TB_COOKIE = cookie;
-                    TB_HEADERS.put("cookie", TB_COOKIE);
+                    TB_HEADERS.put(COOKIE, TB_COOKIE);
                     return true;
                 }
 
@@ -112,13 +127,13 @@ public class Headers {
                 }
 
                 TB_COOKIE = cookie;
-                TB_HEADERS.put("cookie", TB_COOKIE);
+                TB_HEADERS.put(COOKIE, TB_COOKIE);
                 return true;
 
             case JD:
                 if (null == JD_COOKIE) {
                     JD_COOKIE = cookie;
-                    JD_HRADERS.put("cookie", JD_COOKIE);
+                    JD_HRADERS.put(COOKIE, JD_COOKIE);
                     return true;
                 }
 
@@ -127,7 +142,7 @@ public class Headers {
                 }
 
                 JD_COOKIE = cookie;
-                JD_HRADERS.put("cookie", JD_COOKIE);
+                JD_HRADERS.put(COOKIE, JD_COOKIE);
                 return true;
 
             default:

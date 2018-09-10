@@ -26,7 +26,7 @@ public class Emails {
     /**
      * 账户分隔符
      */
-    private static final String SPLIT = "|";
+    private static final String SPLIT = ",";
 
     /**
      * 发送账户
@@ -85,7 +85,7 @@ public class Emails {
     /**
      * 发送邮件 自定义收信人
      *
-     * @param to      接收账户 多账户以 "|" 分隔
+     * @param to      接收账户 多账户以 "," 分隔
      * @param subject 标题
      * @param content 内容
      * @return 返回boolean类型 是否发生成功
@@ -97,7 +97,7 @@ public class Emails {
     /**
      * 发送邮件 自定义收信人
      *
-     * @param to         接收账户 多账户以 "|" 分隔
+     * @param to         接收账户 多账户以 "," 分隔
      * @param subject    标题
      * @param content    内容
      * @param attachment 附件
