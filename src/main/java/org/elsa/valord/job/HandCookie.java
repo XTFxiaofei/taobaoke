@@ -3,17 +3,13 @@ package org.elsa.valord.job;
 import lombok.extern.slf4j.Slf4j;
 import org.elsa.valord.advice.Alimama;
 import org.elsa.valord.advice.response.AuctionCode;
-import org.elsa.valord.common.pojo.HttpResult;
 import org.elsa.valord.common.utils.Chromes;
-import org.elsa.valord.common.utils.Dates;
 import org.elsa.valord.common.utils.Headers;
-import org.elsa.valord.common.utils.Https;
 import org.openqa.selenium.Cookie;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
 /**
  * @author valor

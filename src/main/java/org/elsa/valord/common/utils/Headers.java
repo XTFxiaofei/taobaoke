@@ -14,22 +14,22 @@ public class Headers {
     /**
      * TB 请求头缓存
      */
-    private static final Map<String, String> TB_HEADERS = new HashMap<>();
+    private volatile static Map<String, String> TB_HEADERS = new HashMap<>();
 
     /**
      * JD 请求头缓存
      */
-    private static final Map<String, String> JD_HRADERS = new HashMap<>();
+    private volatile static Map<String, String> JD_HEADERS = new HashMap<>();
 
     /**
      * TB cookie缓存
      */
-    private static String TB_COOKIE = null;
+    private volatile static String TB_COOKIE = null;
 
     /**
      * JD cookie缓存
      */
-    private static String JD_COOKIE = null;
+    private volatile static String JD_COOKIE = null;
 
     /**
      * 指定参数
@@ -41,11 +41,7 @@ public class Headers {
     /**
      * 私有对象 非懒汉模式
      */
-    private static Headers cacheManager;
-
-    static {
-        cacheManager = new Headers();
-    }
+    private static Headers cacheManager = new Headers();
 
     /**
      * 模拟浏览器请求头
@@ -64,10 +60,10 @@ public class Headers {
         TB_HEADERS.put("accept-language", ACCEPT_LANGUAGE);
         TB_HEADERS.put("user-agent", USER_AGENT);
 
-        JD_HRADERS.put("accept", ACCEPT);
-        JD_HRADERS.put("accept-encoding", ACCEPT_ENCODING);
-        JD_HRADERS.put("accept-language", ACCEPT_LANGUAGE);
-        JD_HRADERS.put("user-agent", USER_AGENT);
+        JD_HEADERS.put("accept", ACCEPT);
+        JD_HEADERS.put("accept-encoding", ACCEPT_ENCODING);
+        JD_HEADERS.put("accept-language", ACCEPT_LANGUAGE);
+        JD_HEADERS.put("user-agent", USER_AGENT);
     }
 
     /**
@@ -99,7 +95,7 @@ public class Headers {
             case TB:
                 return TB_HEADERS;
             case JD:
-                return JD_HRADERS;
+                return JD_HEADERS;
 
             default:
                 return null;
@@ -133,7 +129,7 @@ public class Headers {
             case JD:
                 if (null == JD_COOKIE) {
                     JD_COOKIE = cookie;
-                    JD_HRADERS.put(COOKIE, JD_COOKIE);
+                    JD_HEADERS.put(COOKIE, JD_COOKIE);
                     return true;
                 }
 
@@ -142,7 +138,7 @@ public class Headers {
                 }
 
                 JD_COOKIE = cookie;
-                JD_HRADERS.put(COOKIE, JD_COOKIE);
+                JD_HEADERS.put(COOKIE, JD_COOKIE);
                 return true;
 
             default:

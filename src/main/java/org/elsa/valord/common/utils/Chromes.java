@@ -36,19 +36,7 @@ public class Chromes {
     /**
      * selenium驱动的chrome浏览器
      */
-    private static ChromeDriver browser;
-
-    static {
-        System.setProperty("webdriver.chrome.driver", DRIVER_PATH);
-
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments(HEADLESS);
-        options.addArguments(NO_SANDBOX);
-        options.addArguments(NO_EXTENSIONS);
-        options.addArguments(NO_DEV_SHM_USAGE);
-
-        browser = new ChromeDriver(options);
-    }
+    private volatile static ChromeDriver browser = null;
 
     /**
      * selenium 定时扫描器
@@ -62,43 +50,63 @@ public class Chromes {
 
     }
 
+    private static ChromeDriver getBrowser() {
+        if (null == browser) {
+            synchronized (ChromeDriver.class) {
+                if (null == browser) {
+                    System.setProperty("webdriver.chrome.driver", DRIVER_PATH);
+
+                    ChromeOptions options = new ChromeOptions();
+                    options.addArguments(HEADLESS);
+                    options.addArguments(NO_SANDBOX);
+                    options.addArguments(NO_EXTENSIONS);
+                    options.addArguments(NO_DEV_SHM_USAGE);
+
+                    browser = new ChromeDriver(options);
+                }
+            }
+        }
+
+        return browser;
+    }
+
     /**
      * 在当前标签页打开网页
      */
     public static void get(String url) {
-        browser.get(url);
+        getBrowser().get(url);
     }
 
     /**
      * @return 获取当前标签页的url
      */
     public static String getCurrentUrl() {
-        return browser.getCurrentUrl();
+        return getBrowser().getCurrentUrl();
     }
 
     /**
      * 查找元素
      */
     public static WebElement findElementById(String using) {
-        return browser.findElementById(using);
+        return getBrowser().findElementById(using);
     }
 
     public static WebElement findElementByXPath(String using) {
-        return browser.findElementByXPath(using);
+        return getBrowser().findElementByXPath(using);
     }
 
     /**
      * 获取动作链
      */
     public static Actions actions() {
-        return new Actions(browser);
+        return new Actions(getBrowser());
     }
 
     /**
      * @return 获取当前页面的cookies
      */
     public static Set<Cookie> getCookies() {
-        return browser.manage().getCookies();
+        return getBrowser().manage().getCookies();
     }
 
     /**
@@ -106,8 +114,8 @@ public class Chromes {
      * 若为默认标签页 则不操作
      */
     public static void close() {
-        if (!StringUtils.equals(getDefaultHandle(), browser.getWindowHandle())) {
-            browser.close();
+        if (!StringUtils.equals(getDefaultHandle(), getBrowser().getWindowHandle())) {
+            getBrowser().close();
             focusDefaultTab();
         }
     }
@@ -117,7 +125,7 @@ public class Chromes {
      */
     public static WebDriverWait getWait() {
         if (null == wait) {
-            wait = new WebDriverWait(browser, 10);
+            wait = new WebDriverWait(getBrowser(), 10);
         }
         return wait;
     }
@@ -128,18 +136,18 @@ public class Chromes {
      */
     public static String openTabAndFocus(String url) {
         String js = "window.open('" + BLANK + "', '_blank');";
-        browser.executeScript(js);
+        getBrowser().executeScript(js);
         String newHandle = getAllHandles()[1].toString();
-        browser.switchTo().window(newHandle);
-        if (browser.getCurrentUrl().startsWith(BLANK)) {
-            browser.get(url);
+        getBrowser().switchTo().window(newHandle);
+        if (getBrowser().getCurrentUrl().startsWith(BLANK)) {
+            getBrowser().get(url);
             return newHandle;
         }
 
         for (Object o : getAllHandles()) {
-            browser.switchTo().window(o.toString());
-            if (browser.getCurrentUrl().startsWith(BLANK)) {
-                browser.get(url);
+            getBrowser().switchTo().window(o.toString());
+            if (getBrowser().getCurrentUrl().startsWith(BLANK)) {
+                getBrowser().get(url);
                 return o.toString();
             }
         }
@@ -151,14 +159,14 @@ public class Chromes {
      * 将浏览器聚焦到默认标签页
      */
     public static void focusDefaultTab() {
-        browser.switchTo().window(getDefaultHandle());
+        getBrowser().switchTo().window(getDefaultHandle());
     }
 
     /**
      * @return 当前标签页的句柄
      */
     public static String getCurrentHandle() {
-        return browser.getWindowHandle();
+        return getBrowser().getWindowHandle();
     }
 
     /**
@@ -172,7 +180,7 @@ public class Chromes {
      * @return 获取浏览器所有句柄
      */
     public static Object[] getAllHandles() {
-        return browser.getWindowHandles().toArray();
+        return getBrowser().getWindowHandles().toArray();
     }
 
     /**
