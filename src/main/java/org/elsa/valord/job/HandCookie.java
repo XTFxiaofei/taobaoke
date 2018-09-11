@@ -4,9 +4,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.elsa.valord.advice.Alimama;
 import org.elsa.valord.advice.response.AuctionCode;
 import org.elsa.valord.common.pojo.HttpResult;
+import org.elsa.valord.common.utils.Chromes;
 import org.elsa.valord.common.utils.Dates;
 import org.elsa.valord.common.utils.Headers;
 import org.elsa.valord.common.utils.Https;
+import org.openqa.selenium.Cookie;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +25,10 @@ public class HandCookie {
 
     private Headers headers = Headers.getInstance();
 
+    private static StringBuilder cookie = new StringBuilder();
+
+    private static final String MY_UNION = "https://pub.alimama.com/myunion.htm";
+
     private SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 
     @Scheduled(cron = "0 0/2 * * * ?")
@@ -35,24 +41,28 @@ public class HandCookie {
         }
     }
 
-    @Scheduled(cron = "30 0/5 * * * ?")
+    @Scheduled(cron = "33 0/4 * * * ?")
     public void hand2() {
         if (null != headers.getTbCookie()) {
-            String url = "https://pub.alimama.com/report/getTbkPaymentDetails.json?" +
-                    "startTime=" + df.format(Dates.addDay(new Date(), -1)) +
-                    "&endTime=" + df.format(new Date()) +
-                    "&payStatus=&queryType=1&toPage=1&perPageSize=20";
-            log.info("==== Scheduled URL: " + url + " ====");
+            Chromes.openTabAndFocus(MY_UNION);
+            if (Chromes.scanUrl(new String[]{MY_UNION})) {
 
-            try {
-                HttpResult result = Https.ofGet(url, headers.getHeader(Headers.TB));
-                if (200 == result.getCode() && null != result.getContent()) {
-                    log.info("httpResult => " + result);
-                    log.info("====== Scheduled job execute successfully. ======");
+                log.info("StringBuilder => " + cookie);
+                if (cookie.length() > 0) {
+                    cookie.delete(0, cookie.length());
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
+                for (Cookie elem : Chromes.getCookies()) {
+                    cookie.append(elem.getName()).append("=").append(elem.getValue()).append(";");
+                }
+
+                boolean f = headers.putCookie(Headers.TB, cookie.toString());
+                if (f) {
+                    log.info("taobao cookie: " + headers.getTbCookie());
+                    log.info("====== Scheduled change Cookies successfully. ======");
+                }
             }
+
+            Chromes.close();
         }
     }
 }
