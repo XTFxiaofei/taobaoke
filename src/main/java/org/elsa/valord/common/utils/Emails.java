@@ -21,7 +21,7 @@ public class Emails {
     /**
      * 接收账户 多账户以 split 分隔
      */
-    private static final String TO = "m13095944753@163.com";
+    private static final String TO = "xxxx@163.com";
 
     /**
      * 账户分隔符
@@ -31,17 +31,17 @@ public class Emails {
     /**
      * 发送账户
      */
-    private static final String FROM = "wu491607371@qq.com";
+    private static final String FROM = "xxxx@qq.com";
 
     /**
      * 发送账户密码
      */
-    private static final String PASSWORD = "hhuyzadjbgcwcade";
+    private static final String PASSWORD = "xxxx";
 
     /**
      * 发送账户署名
      */
-    private static final String SIGN = "吴凌兮";
+    private static final String SIGN = "valor";
 
     /**
      * 邮件服务器 domain ip
