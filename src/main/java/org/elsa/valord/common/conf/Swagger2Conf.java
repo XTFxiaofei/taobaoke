@@ -30,7 +30,7 @@ public class Swagger2Conf {
     }
 
     private Contact contact() {
-        return new Contact("valor", "https://github.com/valord577", "valord577@gmail.com");
+        return new Contact("valor", "https://github.com/XTFxiaofei", "17328336863@163.com");
     }
 
     private ApiInfo apiInfo() {

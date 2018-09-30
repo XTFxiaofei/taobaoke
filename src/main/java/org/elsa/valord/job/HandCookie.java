@@ -12,8 +12,9 @@ import org.springframework.stereotype.Service;
 import java.text.SimpleDateFormat;
 
 /**
- * @author valor
- * @date 2018/9/10 18:30
+ * @Author:fly
+ * @Description: 定时刷新cookie
+ * @Date:1:33 2018/10/1
  */
 @Slf4j
 @Service
@@ -37,7 +38,7 @@ public class HandCookie {
 //        }
 //    }
 
-    @Scheduled(cron = "0 0/1 * * * ?")
+    @Scheduled(cron = "0 0/15 * * * ?")
     public void hand2() {
         if (null != headers.getTbCookie()) {
             Chromes.openTabAndFocus(MY_UNION);
