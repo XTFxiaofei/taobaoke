@@ -26,8 +26,8 @@ public class Chromes {
 
     private static final String BLANK = "about:blank";
 
-//    private static final String DRIVER_PATH = "/Users/valor/Vicky/ChromeDriver/chromedriver";
-    private static final String DRIVER_PATH = "/mnt/chrome/chromedriver";
+
+    private static final String DRIVER_PATH = "/idea/taobaoke/ChromeDriver/chromedriver.exe";
     private static final String HEADLESS = "--headless";
     private static final String NO_SANDBOX = "--no-sandbox";
     private static final String NO_EXTENSIONS = "--disable-extensions";
@@ -201,7 +201,7 @@ public class Chromes {
      * 获取自定义扫描结果
      */
     public static boolean scanUrl(String[] target, long timeOutInSeconds, long sleepTimeOut) {
-        long p = timeOutInSeconds * 1000 / sleepTimeOut;
+        long p = timeOutInSeconds * 10000 / sleepTimeOut;
 
         for (int i = 0; i < p + 1; i++) {
 

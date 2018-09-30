@@ -14,13 +14,13 @@ import org.springframework.web.context.request.async.DeferredResult;
  */
 @RestController
 @Api(tags = "LinkController", description = "返利、优惠券等商品相关api")
-@RequestMapping(value = "/common/link")
+@RequestMapping(value = "/app")
 public abstract class AbsLinkController extends BaseController {
 
     /**
      * @return 获取商品返利 优惠券相关信息
      */
-    @ApiOperation(value = "getAuctionCode.json")
-    @RequestMapping(value = "/getAuctionCode.json", method = RequestMethod.POST)
+    @ApiOperation(value = "link")
+    @RequestMapping(value = "/link", method = RequestMethod.GET)
     public abstract DeferredResult<String> getAuctionCode();
 }

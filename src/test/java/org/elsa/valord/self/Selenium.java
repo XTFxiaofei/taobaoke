@@ -18,10 +18,10 @@ public class Selenium {
     public static void main(String[] args) {
 
         final String url0 = "https://login.taobao.com/member/login.jhtml?style=mini&newMini2=true&css_style=alimama&from=alimama&redirectURL=http%3A%2F%2Fwww.alimama.com&full_redirect=true&disableQuickLogin=true";
-        final String url1 = "https://pub.alimama.com/common/code/getAuctionCode.json?auctionid=562382995602&adzoneid=11639900145&siteid=62250400&scenes=1";
+        final String url1 = "https://pub.alimama.com/common/code/getAuctionCode.json?auctionid=575345685215&adzoneid=129200277&siteid=208910108&scenes=1";
 
 //        System.setProperty("webdriver.chrome.driver", "/home/elsa/Vicky/Google/chromedriver/chromedriver_2.40_v66_v68");
-        System.setProperty("webdriver.chrome.driver", "/Users/valor/Vicky/ChromeDriver/chromedriver");
+        System.setProperty("webdriver.chrome.driver", "/idea/taobaoke/ChromeDriver/chromedriver.exe");
 
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--disable-extensions");

@@ -31,8 +31,8 @@ public class Alimama {
     public static AuctionCode.Codes getAuctionCode(String id) {
         Map<String, String> queryParams = new HashMap<>(8);
         queryParams.put("auctionid", id);
-        queryParams.put("adzoneid", "11639900145");
-        queryParams.put("siteid", "11639900145");
+        queryParams.put("adzoneid", "129200277");
+        queryParams.put("siteid", "208910108");
         queryParams.put("scenes", "1");
 
         try {

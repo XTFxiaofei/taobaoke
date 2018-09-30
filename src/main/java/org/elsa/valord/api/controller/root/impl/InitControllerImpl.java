@@ -39,9 +39,9 @@ public class InitControllerImpl extends AbsInitController {
 
     @Override
     public String init() {
-        if (!StringUtils.equals(auth, request.getHeader("auth"))) {
-            return "无操作权限";
-        }
+//        if (!StringUtils.equals(auth, request.getHeader("auth"))) {
+//            return "无操作权限";
+//        }
 
         try {
             Chromes.openTabAndFocus(init);
@@ -75,7 +75,8 @@ public class InitControllerImpl extends AbsInitController {
                 Headers headers = Headers.getInstance();
                 boolean f = headers.putCookie(Headers.TB, cookie.toString());
                 if (f) {
-                    log.info("taobao cookie: " + headers.getTbCookie());
+                    //log.info("taobao cookie: " + headers.getTbCookie());
+                    log.info("登录成功！");
                     Chromes.close();
                     return "ok.";
                 }

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @date 2018/9/9 22:26
  */
 @RestController
-@RequestMapping(value = "/root/top/service")
+@RequestMapping(value = "/root")
 public abstract class AbsInitController extends BaseController {
 
     @RequestMapping(value = "/init")
