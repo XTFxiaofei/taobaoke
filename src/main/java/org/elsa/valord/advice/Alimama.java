@@ -1,6 +1,8 @@
 package org.elsa.valord.advice;
 
 import com.alibaba.fastjson.JSON;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import lombok.extern.slf4j.Slf4j;
 import org.elsa.valord.advice.response.AuctionCode;
 import org.elsa.valord.advice.response.TklCode;
@@ -37,8 +39,16 @@ public class Alimama {
 
         try {
             HttpResult result = Https.ofGet(AUCTION_CODE, headers.getHeader(Headers.TB), queryParams);
-            log.info("httpResult => " + result);
-            if (200 == result.getCode() && null != result.getContent()) {
+            log.info("Alimama httpResult => " + result);
+            JsonParser jp = new JsonParser();
+            //将json字符串转化成json对象
+            JsonObject jo = jp.parse(result.getContent()).getAsJsonObject();
+            //获取message对应的值
+            //String data = jo.get("data").getAsString();
+
+            log.info("判断是否能找到:"+jo.get("data"));
+            //if (200 == result.getCode() && null != result.getContent()) {
+            if(200==result.getCode()&&null!=jo.get("data")){
                 AuctionCode auctionCode = JSON.parseObject(result.getContent(), AuctionCode.class);
                 if (auctionCode.isOk() && null != auctionCode.getData()) {
                     return auctionCode.getData();
@@ -53,7 +63,6 @@ public class Alimama {
     }
 
     /**
-     *
      * @param taoToken 淘口令
      * @return 将淘口令转换成长链接
      */

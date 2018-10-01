@@ -73,7 +73,7 @@ public class GetResultController extends BaseController {
                     Chromes.openTabAndFocus(url);
                     if (Chromes.scanTbUrl()) {
                         url = Chromes.getCurrentUrl();
-                        log.info("解析的长链接 => " + url);
+                        log.info("解析的长链接2 => " + url);
                         // 判断域名
                         matcher = domain.matcher(url);
                         if (matcher.find()) {
@@ -139,7 +139,9 @@ public class GetResultController extends BaseController {
             }
 
             if (StringUtils.isNotBlank(id)) {
+                log.info("运行到这...");
                 AuctionCode.Codes codes = Alimama.getAuctionCode(id);
+                log.info("codes是:"+codes);
                 if (null != codes) {
                     GeneralResult<AuctionCode.Codes> data = new GeneralResult<>();
                     data.setSuccess(true);
@@ -147,14 +149,17 @@ public class GetResultController extends BaseController {
 
                     DeferredResult<String> result = new DeferredResult<>();
                     result.setResult(JSON.toJSONString(data));
+                    log.info("要返回的内容:"+result);
                     return result;
                 } else {
+                    log.info("运作这里了");
                     GeneralResult<String> data = new GeneralResult<>();
                     data.setSuccess(false);
                     data.setValue("该商品不在计划中");
 
                     DeferredResult<String> result = new DeferredResult<>();
                     result.setResult(JSON.toJSONString(data));
+                    return result;
                 }
             }
 

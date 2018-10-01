@@ -38,7 +38,7 @@ public class HandCookie {
 //        }
 //    }
 
-    @Scheduled(cron = "0 0/15 * * * ?")
+    @Scheduled(cron = "0 0/5 * * * ?")
     public void hand2() {
         if (null != headers.getTbCookie()) {
             Chromes.openTabAndFocus(MY_UNION);
