@@ -97,9 +97,9 @@ public class GetResultController extends BaseController {
             if (StringUtils.isBlank(id)) {
                 log.info("flag: 用户输入的不包含任何链接");
                 // 尝试截取淘口令
-                String s = StringUtils.substringBetween(goods, "€");
+                String s = StringUtils.substringBetween(goods, "￥");
                 if (StringUtils.isNotBlank(s)) {
-                    String taoToken = "€" + s + "€";
+                    String taoToken = "￥" + s + "￥";
                     log.info("淘口令 => " + taoToken);
                     String url = Alimama.tklParser(taoToken);
                     log.info("淘口令转长链接 => " + url);
